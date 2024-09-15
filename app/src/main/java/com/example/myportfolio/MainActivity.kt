@@ -123,6 +123,7 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
 
             item {
                 Spacer(modifier = Modifier.padding(14.dp))
+
                 Row(modifier = Modifier.wrapContentSize()) {
 
                     Text(text = "Курсы, которые я проходил:")
