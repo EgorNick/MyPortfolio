@@ -59,7 +59,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyPortfolioTheme {
                     MainFunction(listProjects = Projects().listProjects,
-                        listCourses = Projects().listProjects)
+                        listCourses = Projects().listProjects,
+                        navController = rememberNavController())
             }
         }
     }
@@ -68,9 +69,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainFunction(listProjects:List<Pair<String, String>>,
                  listCourses: List<Pair<String, String>>,
+                 navController: NavController,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
     var open2 by rememberSaveable { mutableStateOf(false)}
+    val navController = navController
     Box{
 
     Column(modifier = modifier
@@ -118,7 +121,8 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
             }
             if (open1) {
                 items(listCourses) { (key, value) ->
-                    ShowProjects(project = key) }
+                    ShowProjects(project = key, navController)
+                }
             }
 
             item {
@@ -145,7 +149,7 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
             }
             if (open2) {
                 items(listCourses) { (key, value) ->
-                    ShowProjects(project = value)
+                    ShowProjects(project = value, navController)
                 }
             }
         }
@@ -162,23 +166,40 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
 
 
 @Composable
-fun ShowProjects(project: String){
+fun ShowProjects(project: String, navController: NavController){
     Column {
         ClickableText(
             text = AnnotatedString(project) ,
             onClick = {
-
+                navController.navigate("project_detail/$project")
             })
     }
     }
 
 
 
+@Composable
+fun Navigation() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "project_list") {
+        composable("project_list") {
+            MainFunction(listCourses = Projects().listProjects,
+                listProjects = Projects().listProjects,
+                navController = navController)
+        }
+        composable("project_detail/{projectName}") { backStackEntry ->
+            val projectName = backStackEntry.arguments?.getString("projectName") ?: ""
+            ShowInformation()
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyPortfolioTheme {
        MainFunction(listProjects = Projects().listProjects,
-           listCourses = Projects().listProjects)
+           listCourses = Projects().listProjects,
+           navController = rememberNavController())
     }
 }
