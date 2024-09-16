@@ -76,7 +76,6 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
     var open2 by rememberSaveable { mutableStateOf(false)}
-    val navController = navController
     Box{
 
     Column(modifier = modifier
@@ -184,6 +183,7 @@ fun ShowProjects(project: String, navController: NavController){
 
 
 
+
 @Composable
 fun Navigation() {
 
@@ -197,7 +197,7 @@ fun Navigation() {
         }
         composable("project_detail/{projectName}") { backStackEntry ->
             val projectName = backStackEntry.arguments?.getString("projectName") ?: ""
-            ShowInformation()
+            ShowInformation(projectName)
         }
     }
 }
