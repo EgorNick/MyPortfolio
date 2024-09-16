@@ -15,7 +15,12 @@ fun ShowInformation(projectName: String){
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(text = "Информация о проекте: $projectName")
-        // Добавьте сюда нужную информацию о проекте
+        if (projectName.isNotBlank()) {
+            Column {
+                Text(text = "Project: $projectName")
+            }
+        } else {
+            Text(text = "No project information available")
+        }
     }
 }

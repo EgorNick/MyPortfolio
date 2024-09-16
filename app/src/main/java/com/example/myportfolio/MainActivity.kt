@@ -1,7 +1,9 @@
 package com.example.myportfolio
 
+import android.net.Uri
 import android.os.Bundle
 import android.service.autofill.OnClickAction
+import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -39,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -170,7 +173,10 @@ fun ShowProjects(project: String, navController: NavController){
         ClickableText(
             text = AnnotatedString(project) ,
             onClick = {
-                navController.navigate("project_detail/$project")
+                if (project.isNotBlank()) {
+                    // Кодируем projectName для безопасной передачи в URL
+                    navController.navigate("project_detail/${Uri.encode(project)}")
+                }
             })
     }
     }
@@ -180,9 +186,11 @@ fun ShowProjects(project: String, navController: NavController){
 
 @Composable
 fun Navigation() {
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "project_list") {
         composable("project_list") {
+            val context = LocalContext.current
             MainFunction(listCourses = Projects().listProjects,
                 listProjects = Projects().listProjects,
                 navController = navController)
@@ -198,8 +206,6 @@ fun Navigation() {
 @Composable
 fun GreetingPreview() {
     MyPortfolioTheme {
-       MainFunction(listProjects = Projects().listProjects,
-           listCourses = Projects().listProjects,
-           navController = rememberNavController())
+       Navigation()
     }
 }
