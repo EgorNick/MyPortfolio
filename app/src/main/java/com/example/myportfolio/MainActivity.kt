@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,8 +58,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainFunction(listProjects:List<Pair<String, String>>,
-                 listCourses: List<Pair<String, String>>,
+fun MainFunction(listProjects:List<Pair<String, Int>>,
+                 listCourses: List<Pair<String, Int>>,
                  navController: NavController,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
@@ -134,7 +135,7 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
             }
             if (open2) {
                 items(listCourses) { (key, value) ->
-                    ShowProjects(project = value, navController)
+                    ShowProjects(project = key, navController)
                 }
             }
         }
@@ -142,11 +143,12 @@ fun MainFunction(listProjects:List<Pair<String, String>>,
     }
 
 
+
 @Composable
 fun ShowProjects(project: String, navController: NavController){
     Column {
         ClickableText(
-            text = AnnotatedString(project) ,
+            text = AnnotatedString(project),
             onClick = {
                 if (project.isNotBlank()) {
                     // Кодируем projectName для безопасной передачи в URL
