@@ -2,20 +2,13 @@ package com.example.myportfolio
 
 import android.net.Uri
 import android.os.Bundle
-import android.service.autofill.OnClickAction
-import android.util.Log
-import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,14 +17,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -62,9 +51,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyPortfolioTheme {
-                    MainFunction(listProjects = Projects().listProjects,
-                        listCourses = Projects().listProjects,
-                        navController = rememberNavController())
+                   Navigation()
             }
         }
     }
@@ -77,8 +64,6 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
     var open2 by rememberSaveable { mutableStateOf(false)}
-    Box{
-
     Column(modifier = modifier
         .fillMaxSize()
         .padding(9.dp)) {
@@ -122,10 +107,8 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
                     }
                 }
             }
-            if (open1) {
-                items(listCourses) { (key, value) ->
-                    ShowProjects(project = key, navController)
-                }
+            if (open1) items(listProjects) { (key, value) ->
+                ShowProjects(project = key, navController)
             }
 
             item {
@@ -158,14 +141,6 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
         }
     }
     }
-    Image(
-            painter = painterResource(R.drawable.img),
-            contentDescription = " ",
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.4f)
-        )
-    }
 
 
 
@@ -192,7 +167,6 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "project_list") {
         composable("project_list") {
-            val context = LocalContext.current
             MainFunction(listCourses = Projects().listProjects,
                 listProjects = Projects().listProjects,
                 navController = navController)
