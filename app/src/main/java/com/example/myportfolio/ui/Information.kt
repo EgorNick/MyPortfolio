@@ -20,7 +20,7 @@ fun ShowInformation(projectName: String, image: Int){
     ) {
         if (projectName.isNotBlank()) {
             Column {
-                Text(text = "Project: ${projectName.toInt()}")
+                Text(text = stringResource(id = projectName.toInt()))
                 Image(painter = painterResource(image), contentDescription = " " )
             }
         } else {
