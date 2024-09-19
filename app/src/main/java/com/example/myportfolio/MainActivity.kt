@@ -42,6 +42,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myportfolio.ui.Projects
+import com.example.myportfolio.ui.ShowCourses
 import com.example.myportfolio.ui.ShowInformation
 import com.example.myportfolio.ui.theme.MyPortfolioTheme
 
@@ -59,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
-                 listCourses: List<Pair<Int, Set<Pair<Int, Int>>>>,
+                 listCourses: List<Pair<Int, Int>>,
                  navController: NavController,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
@@ -135,7 +136,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
             }
             if (open2) {
                 items(listCourses) { (key, value) ->
-                    ShowProjects(key = key, project = value, navController)
+                    ShowCourses(name= key, link = value)
                 }
             }
         }
@@ -170,7 +171,7 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "project_list") {
         composable("project_list") {
-            MainFunction(listCourses = Projects().listProjects,
+            MainFunction(listCourses = Projects().listCourses,
                 listProjects = Projects().listProjects,
                 navController = navController)
         }
