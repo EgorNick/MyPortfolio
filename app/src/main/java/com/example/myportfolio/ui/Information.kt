@@ -12,10 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,15 +55,21 @@ fun ShowInformation(projectDescription: String, image: Int){
 @Composable
 fun ShowCourses(name: Int, link: Int){
     val context = LocalContext.current
+    val url = stringResource(id = link)
+    val blue = colorResource(id = R.color.purple_700)
     Column(modifier = Modifier.padding(14.dp)) {
         Text(text = stringResource(name, link))
         ClickableText(
             text = AnnotatedString(stringResource(id = link)),
             onClick = {
-                val url = link
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()))
+                val url = url
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 context.startActivity(intent)
-            })
+            },
+            style = TextStyle(
+                color = Blue
+            )
+        )
         }
     }
 

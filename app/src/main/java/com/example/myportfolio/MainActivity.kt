@@ -69,7 +69,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
         .fillMaxSize()
         .padding(9.dp)) {
         Text(
-            text = "Portfolio",
+            text = stringResource(R.string.app_name),
             textAlign = TextAlign.Center,
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
         )
@@ -84,9 +84,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
             )
             Spacer(modifier = Modifier.padding(9.dp))
             Column(modifier = Modifier) {
-                Text(text = "Меня зовут Никульшин Егор")
-                Text(text = "Возраст: 19 лет")
-                Text(text = "Направление: Android-разработка")
+                Text(text = stringResource(R.string.inform_bio))
             }
         }
         Spacer(modifier = Modifier.padding(16.dp))
@@ -97,7 +95,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
             item {
                 Row {
 
-                    Text(text = "Библиотеки, с которыми я работал:")
+                    Text(text = stringResource(R.string.used_libraries))
                     Spacer(modifier = Modifier.weight(1F))
                     IconButton(onClick = { open1 =  !open1}) {
                         Icon(imageVector = if (open1){
@@ -117,7 +115,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
 
                 Row(modifier = Modifier.wrapContentSize()) {
 
-                    Text(text = "Курсы, которые я проходил:")
+                    Text(text = stringResource(R.string.used_courses))
                     Spacer(modifier = Modifier.weight(1F))
                     IconButton(
                         onClick = { open2 = !open2 },
