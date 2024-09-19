@@ -84,7 +84,8 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
             )
             Spacer(modifier = Modifier.padding(9.dp))
             Column(modifier = Modifier) {
-                Text(text = stringResource(R.string.inform_bio))
+                Text(text = stringResource(R.string.inform_bio),
+                    textAlign = TextAlign.Start,)
             }
         }
         Spacer(modifier = Modifier.padding(16.dp))

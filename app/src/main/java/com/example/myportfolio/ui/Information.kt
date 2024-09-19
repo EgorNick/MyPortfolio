@@ -47,7 +47,7 @@ fun ShowInformation(projectDescription: String, image: Int){
                         .padding(top = 14.dp))
             }
         } else {
-            Text(text = "No project information available")
+            Text(text = stringResource(id = R.string.no_description))
         }
     }
 }
