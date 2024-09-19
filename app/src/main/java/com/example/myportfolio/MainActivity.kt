@@ -58,8 +58,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainFunction(listProjects:List<Pair<String, Int>>,
-                 listCourses: List<Pair<String, Int>>,
+fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
+                 listCourses: List<Pair<Int, Set<Pair<Int, Int>>>>,
                  navController: NavController,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
@@ -108,7 +108,7 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
                 }
             }
             if (open1) items(listProjects) { (key, value) ->
-                ShowProjects(project = key, navController)
+                ShowProjects(key = key, project = value, navController)
             }
 
             item {
@@ -135,7 +135,7 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
             }
             if (open2) {
                 items(listCourses) { (key, value) ->
-                    ShowProjects(project = key, navController)
+                    ShowProjects(key = key, project = value, navController)
                 }
             }
         }
@@ -145,16 +145,19 @@ fun MainFunction(listProjects:List<Pair<String, Int>>,
 
 
 @Composable
-fun ShowProjects(project: String, navController: NavController){
+fun ShowProjects(key: Int, project:Set<Pair<Int, Int>>, navController: NavController){
     Column {
-        ClickableText(
-            text = AnnotatedString(project),
-            onClick = {
-                if (project.isNotBlank()) {
-                    // Кодируем projectName для безопасной передачи в URL
-                    navController.navigate("project_detail/${Uri.encode(project)}")
-                }
-            })
+        project.forEach { (stringId, imageId) ->
+            ClickableText(
+                text = AnnotatedString(stringResource(key)),
+                onClick = {
+                    if (stringId.toString().isNotBlank()) {
+                        // Кодируем projectName для безопасной передачи в URL
+                        navController.navigate("project_detail/${Uri.encode(stringId.toString())}/$imageId")
+                    }
+                },
+                modifier = Modifier.padding(top = 18.dp))
+        }
     }
     }
 
@@ -171,9 +174,10 @@ fun Navigation() {
                 listProjects = Projects().listProjects,
                 navController = navController)
         }
-        composable("project_detail/{projectName}") { backStackEntry ->
-            val projectName = backStackEntry.arguments?.getString("projectName") ?: ""
-            ShowInformation(projectName)
+        composable("project_detail/{projectName}/{image}") { backStackEntry ->
+            val projectDescription= backStackEntry.arguments?.getString("projectName") ?: ""
+            val projectImage = backStackEntry.arguments?.getString("image") ?.toIntOrNull() ?: 0
+            ShowInformation(projectDescription, projectImage)
         }
     }
 }
