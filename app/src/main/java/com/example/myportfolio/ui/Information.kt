@@ -1,16 +1,21 @@
 package com.example.myportfolio.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,17 +36,33 @@ fun ShowInformation(projectDescription: String, image: Int){
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = stringResource(id = projectDescription.toInt()),
                     modifier = Modifier.padding(14.dp),
-                        textAlign = TextAlign.Center)
+                    textAlign = TextAlign.Center)
                 Image(painter = painterResource(image),
                     contentDescription = " ",
-                    modifier = Modifier.size(200.dp)
-                            .padding(top = 14.dp))
+                    modifier = Modifier
+                        .size(200.dp)
+                        .padding(top = 14.dp))
             }
         } else {
             Text(text = "No project information available")
         }
     }
 }
+
+@Composable
+fun ShowCourses(name: Int, link: Int){
+    val context = LocalContext.current
+    Column(modifier = Modifier.padding(14.dp)) {
+        Text(text = stringResource(name, link))
+        ClickableText(
+            text = AnnotatedString(stringResource(id = link)),
+            onClick = {
+                val url = link
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()))
+                context.startActivity(intent)
+            })
+        }
+    }
 
 @Preview(showBackground = true)
 @Composable
