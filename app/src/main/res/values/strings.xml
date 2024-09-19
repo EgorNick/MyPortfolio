@@ -3,10 +3,14 @@
 
     <string name="used_courses">Курсы, которые я проходил:</string>
 
+    <string name="no_description">Пока нет никакой информации</string>
+
     <string name="used_libraries">Библиотеки, с которыми я работал:</string>
 
-    <string name="inform_bio">Меня зовут Никульшин Егор \n
-    Мне 19 лет. Учусь в университете ИТМО по направлению "Мобильные и сетевые технологии".</string>
+    <string name="inform_bio"> Меня зовут Никульшин Егор. \n
+        Мне 19 лет. \n
+        Учусь в университете ИТМО по направлению "Мобильные и сетевые технологии".</string>
+
     <string name="mars_photos">Mars Photo</string>
     <string name = "description_mars_photos">\n Coroutines
     \n Я создал приложение, которое отправляет запрос API веб-службы и обрабытывает ответы.
@@ -17,7 +21,7 @@
 
     <string name="inventory_app">Inventory App</string>
 
-    <string name = "description_inventory_app"> \n Inventory
+    <string name = "description_inventory_app"> \n Inventory App
         \n В этом приложении я добавил уровень базы данных,
         используя библиотеку Room. В окончательной версии приложения отображается список предметов
         из базы данных inventory. Пользователь может добавлять новый товар, обновлять существующий
@@ -27,7 +31,7 @@
 
     <string name="list_notes">NotesForMe</string>
 
-    <string name = "description_notes"> \n Inventory
+    <string name = "description_notes"> \n Notes To Self
         \n Это приложение было написано на языке Java. В нём ты можешь добавлять и удалять свои заметки.
             Также, есть варианты для указания даты заметки и специальные возможности изменения цвета, чтобы ты не забыл про время завершения.
         В этом приложении ты можешь менять тему и выбирать способ просмотра заметок.
