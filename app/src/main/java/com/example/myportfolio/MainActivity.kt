@@ -58,8 +58,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainFunction(listProjects:List<Pair<String, Set<Pair<Int, Int>>>>,
-                 listCourses: List<Pair<String, Set<Pair<Int, Int>>>>,
+fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
+                 listCourses: List<Pair<Int, Set<Pair<Int, Int>>>>,
                  navController: NavController,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
@@ -145,17 +145,18 @@ fun MainFunction(listProjects:List<Pair<String, Set<Pair<Int, Int>>>>,
 
 
 @Composable
-fun ShowProjects(key: String, project:Set<Pair<Int, Int>>, navController: NavController){
+fun ShowProjects(key: Int, project:Set<Pair<Int, Int>>, navController: NavController){
     Column {
         project.forEach { (stringId, imageId) ->
             ClickableText(
-                text = AnnotatedString(key),
+                text = AnnotatedString(stringResource(key)),
                 onClick = {
                     if (stringId.toString().isNotBlank()) {
                         // Кодируем projectName для безопасной передачи в URL
                         navController.navigate("project_detail/${Uri.encode(stringId.toString())}/$imageId")
                     }
-                })
+                },
+                modifier = Modifier.padding(top = 18.dp))
         }
     }
     }
@@ -174,9 +175,9 @@ fun Navigation() {
                 navController = navController)
         }
         composable("project_detail/{projectName}/{image}") { backStackEntry ->
-            val projectName = backStackEntry.arguments?.getString("projectName") ?: ""
+            val projectDescription= backStackEntry.arguments?.getString("projectName") ?: ""
             val projectImage = backStackEntry.arguments?.getString("image") ?.toIntOrNull() ?: 0
-            ShowInformation(projectName, projectImage)
+            ShowInformation(projectDescription, projectImage)
         }
     }
 }
