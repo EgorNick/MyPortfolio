@@ -26,6 +26,7 @@ class Projects {
 
     val listCourses: List<Pair<Int, Int>> = listOf<Pair<Int, Int>>(
         R.string.android_developer_course to R.string.link_android_dev,
+        R.string.t_bank_course to R.string.t_bank_description
     )
 
 }
