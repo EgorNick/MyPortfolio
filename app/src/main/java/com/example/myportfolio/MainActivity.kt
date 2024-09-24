@@ -42,10 +42,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -97,7 +99,6 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
     var open2 by rememberSaveable { mutableStateOf(false)}
     Scaffold(topBar = {ShowTopAppBar()}) { it ->
         LazyColumn(contentPadding = it) {
-
 
             item {
                 Row(modifier = Modifier.wrapContentSize()) {
@@ -180,6 +181,7 @@ fun ShowProjects(key: Int, project:Set<Pair<Int, Int>>, navController: NavContro
         project.forEach { (stringId, imageId) ->
             ClickableText(
                 text = AnnotatedString(stringResource(key)),
+                style = TextStyle(color = Color.White),
                 onClick = {
                     if (stringId.toString().isNotBlank()) {
                         // Кодируем projectName для безопасной передачи в URL
