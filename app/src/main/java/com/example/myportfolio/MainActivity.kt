@@ -11,7 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,7 +21,6 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,8 +28,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,11 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -97,24 +89,29 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
                  modifier: Modifier = Modifier) {
     var open1 by rememberSaveable { mutableStateOf(false) }
     var open2 by rememberSaveable { mutableStateOf(false)}
-    Scaffold(topBar = {ShowTopAppBar()}) { it ->
-        LazyColumn(contentPadding = it) {
+    Scaffold(topBar = {ShowTopAppBar()},
+    ) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
 
             item {
-                Row(modifier = Modifier.wrapContentSize()) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
 
                     Image(
                         painter = painterResource(id = R.drawable.photo_portfolio),
                         contentDescription = "",
                         modifier = Modifier
                             .size(96.dp)
-                            .padding(start = 8.dp)
+                            .padding(end = 8.dp)
                     )
-                    Spacer(modifier = Modifier.padding(9.dp))
-                    Column(modifier = Modifier) {
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = stringResource(R.string.inform_bio),
-                            textAlign = TextAlign.Start,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(start = 8.dp)
                         )
                     }
                 }
@@ -123,7 +120,7 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
 
 
             item {
-                Row {
+                Row(modifier = Modifier.padding(14.dp)) {
 
                     Text(text = stringResource(R.string.used_libraries))
                     Spacer(modifier = Modifier.weight(1F))
@@ -145,7 +142,8 @@ fun MainFunction(listProjects:List<Pair<Int, Set<Pair<Int, Int>>>>,
             item {
                 Spacer(modifier = Modifier.padding(14.dp))
 
-                Row(modifier = Modifier.wrapContentSize()) {
+                Row(modifier = Modifier.wrapContentSize()
+                    .padding(14.dp)) {
 
                     Text(text = stringResource(R.string.used_courses))
                     Spacer(modifier = Modifier.weight(1F))
@@ -188,7 +186,7 @@ fun ShowProjects(key: Int, project:Set<Pair<Int, Int>>, navController: NavContro
                         navController.navigate("project_detail/${Uri.encode(stringId.toString())}/$imageId")
                     }
                 },
-                modifier = Modifier.padding(top = 18.dp))
+                modifier = Modifier.padding(top = 18.dp, start = 18.dp))
         }
     }
     }

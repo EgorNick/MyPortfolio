@@ -7,9 +7,8 @@
 
     <string name="used_libraries">Библиотеки, с которыми я работал:</string>
 
-    <string name="inform_bio"> Меня зовут Никульшин Егор. \n
-        Мне 19 лет. \n
-        Учусь в университете ИТМО по направлению "Мобильные и сетевые технологии".</string>
+    <string name="inform_bio">Меня зовут Никульшин Егор, 19 лет.
+        Учусь в университете ИТМО по специальности "Инфокоммуникационные технологии", направлению "Мобильные и сетевые технологии".</string>
 
     <string name="mars_photos">Mars Photo</string>
     <string name = "description_mars_photos">\n Coroutines

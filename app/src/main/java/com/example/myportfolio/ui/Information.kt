@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Cyan
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -56,7 +57,6 @@ fun ShowInformation(projectDescription: String, image: Int){
 fun ShowCourses(name: Int, link: Int){
     val context = LocalContext.current
     val url = stringResource(id = link)
-    val blue = colorResource(id = R.color.purple_700)
     Column(modifier = Modifier.padding(14.dp)) {
         Text(text = stringResource(name, link))
         ClickableText(
@@ -67,7 +67,7 @@ fun ShowCourses(name: Int, link: Int){
                 context.startActivity(intent)
             },
             style = TextStyle(
-                color = Blue
+                color = Cyan,
             )
         )
         }
